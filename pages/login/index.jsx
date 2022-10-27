@@ -7,24 +7,33 @@ import { useState } from "react";
 import axiosClient from "utils/axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { getDataUserById } from "stores/action/user";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState("");
   const inputForm = (e) => {
+    setMessage("");
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
+      setIsError(false);
       setLoading(true);
       const result = await axiosClient.post("auth/login", form);
       setLoading(false);
+      setMessage(result.data.msg);
       const authData = result.data.data;
       Cookies.set("token", authData.token);
       Cookies.set("userId", authData.id);
+      dispatch(getDataUserById(authData.id));
 
       if (authData.pin) {
         Cookies.set("pin", authData.pin);
@@ -33,7 +42,9 @@ export default function Login() {
         router.push("/create-pin");
       }
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      setMessage(error.response.data.msg);
+      setIsError(true);
     }
   };
   return (
@@ -56,6 +67,7 @@ export default function Login() {
                   name={"email"}
                   onChange={inputForm}
                   placeholder={"Enter your e-mail"}
+                  isError={isError}
                 />
                 <Input
                   icon={"codicon:lock"}
@@ -63,11 +75,19 @@ export default function Login() {
                   name={"password"}
                   onChange={inputForm}
                   placeholder={"Enter your password"}
+                  isError={isError}
                 />
               </div>
               <a className="text-sm text-[#3A3D42CC] cursor-pointer font-semibold block text-end mt-6">
                 Forgot Password?
               </a>
+
+              <p
+                className="text-center mt-8 font-medium text-error"
+                hidden={isError ? false : true}
+              >
+                {message}
+              </p>
 
               <Button
                 content={"Login"}
