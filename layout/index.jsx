@@ -3,9 +3,18 @@ import Header from "components/header";
 import Head from "next/head";
 import Aside from "components/aside";
 import Footer from "components/footer";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export default function Layout({ title, page, children }) {
-  return (
+  const router = useRouter();
+  const token = Cookies.get("token");
+
+  if (!token) {
+    router.push("/login");
+  }
+
+  return token ? (
     <>
       <Head>
         <title>{title} - FazzPay</title>
@@ -21,5 +30,7 @@ export default function Layout({ title, page, children }) {
 
       <Footer />
     </>
+  ) : (
+    ""
   );
 }
