@@ -23,7 +23,11 @@ export default function People({ data, navigate }) {
     >
       <div className="w-16 h-16 rounded-lg">
         <Image
-          src={data.image ? data.image : "/default-profile.png"}
+          src={
+            data.image
+              ? process.env.URL_CLOUDINARY + data.image
+              : "/default-profile.png"
+          }
           width={1}
           height={1}
           layout={"responsive"}

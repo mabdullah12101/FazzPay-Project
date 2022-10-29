@@ -3,8 +3,11 @@ import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import axiosClient from "utils/axiosServer";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { modal } from "stores/action/topUp";
 
 export default function List({ page, icon, content }) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const active = page === content ? true : false;
 
@@ -22,6 +25,10 @@ export default function List({ page, icon, content }) {
           Cookies.remove(item);
         });
         router.push("/login");
+        break;
+      case "Top Up":
+        dispatch(modal(true));
+        break;
 
       default:
         break;

@@ -59,6 +59,7 @@ export default function TransferAmount() {
               className="text-primary placeholder:text-[#B5BDCC] focus:outline-none text-[42px] text-center"
               placeholder="0.00"
               name="amount"
+              min={1001}
               max={balance}
               onChange={handleOnChange}
             />
