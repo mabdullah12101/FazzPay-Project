@@ -12,7 +12,11 @@ export default function Header() {
       <div className="flex items-center">
         <div className="w-14 h-14 rounded-xl mr-3">
           <Image
-            src={dataUser.image ? dataUser.image : "/default-profile.png"}
+            src={
+              dataUser.image
+                ? process.env.URL_CLOUDINARY + dataUser.image
+                : "/default-profile.png"
+            }
             width={56}
             height={56}
             alt="profile"

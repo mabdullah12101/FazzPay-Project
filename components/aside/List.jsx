@@ -19,15 +19,18 @@ export default function List({ page, icon, content }) {
       case "Transfer":
         router.push("/transfer");
         break;
+      case "Top Up":
+        dispatch(modal(true));
+        break;
+      case "Profile":
+        router.push("/profile");
+        break;
       case "Logout":
         axiosClient.post("auth/logout");
         Object.keys(Cookies.get()).map((item) => {
           Cookies.remove(item);
         });
         router.push("/login");
-        break;
-      case "Top Up":
-        dispatch(modal(true));
         break;
 
       default:

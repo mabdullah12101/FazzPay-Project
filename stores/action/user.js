@@ -6,3 +6,10 @@ export const getDataUserById = (userId) => {
     payload: axiosClient.get(`user/profile/${userId}`),
   };
 };
+
+export const updateImage = (userId, data) => {
+  return {
+    type: "UPDATE_IMAGE_BY_ID",
+    payload: axiosClient.patch(`user/image/${userId}`, data),
+  };
+};

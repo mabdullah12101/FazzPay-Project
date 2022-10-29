@@ -15,22 +15,43 @@ const user = (state = initialState, action) => {
         isError: false,
         message: "",
       };
-      break;
-
     case "GET_DATA_USER_BY_ID_FULFILLED":
       return {
         ...state,
         data: action.payload.data.data,
         isLoading: false,
       };
-      break;
     case "GET_DATA_USER_BY_ID_REJECTED":
       return {
         ...state,
         data: {},
         isLoading: false,
       };
-      break;
+
+    case "UPDATE_IMAGE_BY_ID_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        message: "",
+      };
+    }
+    case "UPDATE_IMAGE_BY_ID_FULFILLED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        message: action.payload.data.msg,
+      };
+    }
+    case "UPDATE_IMAGE_BY_ID_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload.response.data.msg,
+      };
+    }
 
     default: {
       return state;
