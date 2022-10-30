@@ -8,7 +8,7 @@ export default function DetailProfile() {
   const user = useSelector((state) => state.user.data);
 
   return (
-    <Layout title="Profile" page={"Profile"}>
+    <Layout title="Detail Profile" page={"Profile"}>
       <div className="bg-white rounded-3xl shadow-lg px-7 pt-7 pb-12">
         <MainHeader
           title={"Personal Information"}

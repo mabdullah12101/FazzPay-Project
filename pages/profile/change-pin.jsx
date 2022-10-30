@@ -96,7 +96,7 @@ export default function ChangePin() {
   };
 
   return (
-    <Layout title="Profile" page={"Profile"}>
+    <Layout title="Change PIN" page={"Profile"}>
       <div
         id="toast"
         className={`${

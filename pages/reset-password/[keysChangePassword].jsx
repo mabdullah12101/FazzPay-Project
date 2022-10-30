@@ -1,47 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Auth from "layout/auth";
 import Input from "components/auth/Input";
 import Button from "components/auth/Button";
-import Navigate from "components/auth/Navigate";
-import { useState } from "react";
 import axiosClient from "utils/axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import { getDataUserById } from "stores/action/user";
-import { getDataDashboard } from "stores/action/dashboard";
-import { getDataHistory } from "stores/action/history";
 
-export default function Login() {
-  const dispatch = useDispatch();
+export default function ForgotPassword() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const { keysChangePassword } = router.query;
+  const [toast, setToast] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState("");
-  const [toast, setToast] = useState(false);
-  const [authData, setAuthData] = useState({});
+  const [form, setForm] = useState({
+    newPassword: "",
+    confirmPassword: "",
+  });
+  console.log(form);
 
   const inputForm = (e) => {
     setMessage("");
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      keysChangePassword: keysChangePassword,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleLogin = async (e) => {
+  const handleResetPassword = async (e) => {
     try {
       e.preventDefault();
       setIsError(false);
       setLoading(true);
-      const result = await axiosClient.post("auth/login", form);
+      const result = await axiosClient.patch("auth/reset-password", form);
       setLoading(false);
       setMessage(result.data.msg);
-      setAuthData(result.data.data);
-      const dataResult = result.data.data;
-      Cookies.set("token", dataResult.token);
-      Cookies.set("userId", dataResult.id);
-      dispatch(getDataUserById(dataResult.id));
-      dispatch(getDataDashboard(dataResult.id));
-      dispatch(getDataHistory());
       setToast(true);
     } catch (error) {
       setLoading(false);
@@ -52,13 +45,15 @@ export default function Login() {
   };
 
   const handleClose = () => {
+    setToast(false);
     if (isError) {
-      setToast(false);
-    } else if (authData.pin) {
-      Cookies.set("pin", authData.pin);
-      router.push("/home");
+      setForm({
+        keysChangePassword: keysChangePassword,
+        newPassword: "",
+        confirmPassword: "",
+      });
     } else {
-      router.push("/create-pin");
+      router.push("/login");
     }
   };
 
@@ -139,38 +134,37 @@ export default function Login() {
         </button>
       </div>
       <Auth
-        titlePage={"Login"}
+        titlePage={"Reset Password"}
         title={
-          "Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users"
+          "Did You Forgot Your Password? Dont Worry, You Can Reset Your Password In a Minutes."
         }
         subtitle={
-          "Transfering money is eassier than ever, you can access FazzPay wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!"
+          "Now you can create a new password for your FazzPay account. Type your password twice so we can confirm your new passsword."
         }
         toast={toast}
         body={
           <>
-            <form className="mt-10" onSubmit={handleLogin}>
+            <form className="mt-10" onSubmit={handleResetPassword}>
               <div className="grid gap-y-7">
                 <Input
-                  icon={"codicon:mail"}
-                  type={"email"}
-                  name={"email"}
+                  icon={"codicon:lock"}
+                  type={"password"}
+                  name={"newPassword"}
                   onChange={inputForm}
-                  placeholder={"Enter your e-mail"}
+                  placeholder={"Create New Password"}
                   isError={isError}
+                  value={form.newPassword}
                 />
                 <Input
                   icon={"codicon:lock"}
                   type={"password"}
-                  name={"password"}
+                  name={"confirmPassword"}
                   onChange={inputForm}
-                  placeholder={"Enter your password"}
+                  placeholder={"Confirm New Password"}
                   isError={isError}
+                  value={form.confirmPassword}
                 />
               </div>
-              <a className="text-sm text-[#3A3D42CC] cursor-pointer font-semibold block text-end mt-6">
-                Forgot Password?
-              </a>
 
               <p
                 className="text-center mt-8 font-medium text-error"
@@ -180,16 +174,15 @@ export default function Login() {
               </p>
 
               <Button
-                content={"Login"}
+                content={"Confirm"}
                 isLoading={loading}
                 disable={
-                  toast ? true : form.email && form.password ? false : true
+                  toast
+                    ? true
+                    : form.newPassword && form.confirmPassword
+                    ? false
+                    : true
                 }
-              />
-              <Navigate
-                content={"Don't have an account? Let's"}
-                navigate={"Register"}
-                navigatePage={"/register"}
               />
             </form>
           </>

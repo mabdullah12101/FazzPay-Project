@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosClient from "utils/axios";
 import { createTransfer } from "stores/action/transfer";
 import { getDataUserById } from "stores/action/user";
+import { getDataDashboard } from "stores/action/dashboard";
 
 export default function Confirmation() {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ export default function Confirmation() {
       await axiosClient.get(`user/pin/${allPin}`);
       dispatch(createTransfer(detailTransfer)).then(() => {
         dispatch(getDataUserById(userId));
+        dispatch(getDataDashboard(userId));
         router.push("/transfer/status");
       });
     } catch (error) {

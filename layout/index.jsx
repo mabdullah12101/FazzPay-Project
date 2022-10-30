@@ -9,10 +9,13 @@ import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { modal } from "stores/action/topUp";
 import axiosClient from "utils/axios";
+import { getDataUserById } from "stores/action/user";
+import { getDataDashboard } from "stores/action/dashboard";
 
 export default function Layout({ title, page, children }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const user = useSelector((state) => state.user);
   const token = Cookies.get("token");
   const modalTopUp = useSelector((state) => state.topUp.modal);
   const [amount, setAmount] = useState({});
@@ -20,7 +23,6 @@ export default function Layout({ title, page, children }) {
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState("");
   const [toast, setToast] = useState(false);
-  const [urlMidtrans, setUrlMidtrans] = useState("");
 
   const handleClose = () => {
     dispatch(modal(false));
@@ -38,10 +40,10 @@ export default function Layout({ title, page, children }) {
       const result = await axiosClient.post("/transaction/top-up", amount);
       console.log(result);
       setMessage(result.data.msg);
-      setUrlMidtrans(result.data.data.redirectUrl);
       setLoading(false);
       handleClose();
       setToast(true);
+      window.open(result.data.data.redirectUrl, "_blank");
     } catch (error) {
       setMessage(error.response.data.msg);
       setIsError(true);
@@ -52,11 +54,12 @@ export default function Layout({ title, page, children }) {
   };
 
   const closeToast = () => {
+    dispatch(getDataUserById(user.data.id));
+    dispatch(getDataDashboard(user.data.id));
     setAmount({});
     setIsError(false);
     setLoading(false);
     setMessage("");
-    window.open(urlMidtrans, "_blank");
     router.push("/home");
     setToast(false);
   };

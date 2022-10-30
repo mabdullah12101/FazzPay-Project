@@ -36,7 +36,7 @@ export default function ChangePassword() {
   };
 
   return (
-    <Layout title="Profile" page={"Profile"}>
+    <Layout title="Change Password" page={"Profile"}>
       <div
         id="toast"
         className={`${
