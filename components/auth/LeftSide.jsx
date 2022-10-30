@@ -4,7 +4,7 @@ import Brand from "components/brand";
 
 export default function LeftSide() {
   return (
-    <div className="basis-[58%] bg-[url('/bg-auth.png')] bg-cover bg-[center_top_-1rem] text-white pl-32 pt-12 pb-12">
+    <div className="xl:basis-[58%] hidden xl:block bg-[url('/bg-auth.png')] bg-cover bg-[center_top_-1rem] text-white pl-32 pt-12 pb-12">
       <Brand />
 
       <Image

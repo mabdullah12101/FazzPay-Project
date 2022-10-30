@@ -168,7 +168,10 @@ export default function Login() {
                   isError={isError}
                 />
               </div>
-              <a className="text-sm text-[#3A3D42CC] cursor-pointer font-semibold block text-end mt-6">
+              <a
+                className="text-sm text-[#3A3D42CC] cursor-pointer font-semibold block text-end mt-6"
+                onClick={() => router.push("/forgot-password")}
+              >
                 Forgot Password?
               </a>
 

@@ -18,15 +18,15 @@ export default function Auth({
   const token = Cookies.get("token");
   const pin = Cookies.get("pin");
 
-  useEffect(() => {
-    if (titlePage === "Login" || titlePage === "Register") {
-      token && !toast ? router.push("/home") : "";
-    } else if (titlePage === "Create Pin" && !token) {
-      router.push("/login");
-    } else if (titlePage === "Create Pin" && token && pin) {
-      router.push("/home");
-    }
-  });
+  // useEffect(() => {
+  //   if (titlePage === "Login" || titlePage === "Register") {
+  //     token && !toast ? router.push("/home") : "";
+  //   } else if (titlePage === "Create Pin" && !token) {
+  //     router.push("/login");
+  //   } else if (titlePage === "Create Pin" && token && pin) {
+  //     router.push("/home");
+  //   }
+  // });
 
   return (
     <div
@@ -41,13 +41,14 @@ export default function Auth({
       <Head>
         <title>{titlePage} - FazzPay</title>
       </Head>
-      <div className="flex">
+      <div className="xl:flex grid  xl:h-auto h-screen">
         <LeftSide />
         <RightSide
           title={title}
           subtitle={subtitle}
           body={body}
           iconRightSide={iconRightSide}
+          titlePage={titlePage}
         ></RightSide>
       </div>
     </div>
