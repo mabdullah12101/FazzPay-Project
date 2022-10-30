@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  swcMinify: false,
   env: {
     URL_BACKEND: "https://fazzpay-rose.vercel.app",
     URL_CLOUDINARY:
