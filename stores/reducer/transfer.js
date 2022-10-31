@@ -14,7 +14,6 @@ const transfer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-      break;
 
     case "DETAIL_TRANSFER":
       return {
@@ -22,28 +21,32 @@ const transfer = (state = initialState, action) => {
         detailTransfer: action.payload,
         dateTimeTransfer: moment().format("MMM DD, YYYY - kk:mm"),
       };
-      break;
+
+    case "RESET_TRANSFER_DATA":
+      return {
+        ...state,
+        user: {},
+        detailTransfer: {},
+        dateTimeTransfer: "",
+      };
 
     case "CREATE_TRANSFER_PENDING":
       return {
         ...state,
         isError: false,
       };
-      break;
 
     case "CREATE_TRANSFER_FULFILLED":
       return {
         ...state,
         isError: false,
       };
-      break;
 
     case "CREATE_TRANSFER_REJECTED":
       return {
         ...state,
         isError: true,
       };
-      break;
 
     default: {
       return state;

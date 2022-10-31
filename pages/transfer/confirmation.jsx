@@ -13,15 +13,15 @@ import axiosClient from "utils/axios";
 import { createTransfer } from "stores/action/transfer";
 import { getDataUserById } from "stores/action/user";
 import { getDataDashboard } from "stores/action/dashboard";
+import { getDataHistory } from "stores/action/history";
 
 export default function Confirmation() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const dataUser = useSelector((state) => state.transfer.user);
   const transfer = useSelector((state) => state.transfer);
+  const dataUser = useSelector((state) => state.transfer.user);
   const detailTransfer = transfer.detailTransfer;
   const balance = useSelector((state) => state.user.data.balance);
-  const isLogin = Cookies.get("token");
   const userId = Cookies.get("userId");
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -69,6 +69,7 @@ export default function Confirmation() {
       dispatch(createTransfer(detailTransfer)).then(() => {
         dispatch(getDataUserById(userId));
         dispatch(getDataDashboard(userId));
+        dispatch(getDataHistory());
         router.push("/transfer/status");
       });
     } catch (error) {
@@ -79,10 +80,6 @@ export default function Confirmation() {
       handleClose();
     }
   };
-
-  if (!isLogin) {
-    router.push("/login");
-  }
 
   const handleClose = () => {
     setPin({
@@ -105,8 +102,22 @@ export default function Confirmation() {
     }
   };
 
+  if (
+    Object.keys(dataUser).length < 1 ||
+    Object.keys(detailTransfer).length < 1
+  ) {
+    router.push("/transfer");
+  }
+
   return (
-    <div className={`${isLogin ? "" : "hidden"}`}>
+    <div
+      className={`${
+        Object.keys(dataUser).length < 1 ||
+        Object.keys(detailTransfer).length < 1
+          ? "hidden"
+          : ""
+      }`}
+    >
       <div
         id="toast"
         className={`${
@@ -226,7 +237,7 @@ export default function Confirmation() {
         </div>
       </div>
 
-      <Layout title="Transfer" page={"Transfer"}>
+      <Layout title="Transfer Confirmation" page={"Transfer"}>
         <div className="bg-white rounded-3xl shadow-lg px-7 py-7">
           <h2 className="text-lg text-dark font-semibold mb-6">Transfer To</h2>
 

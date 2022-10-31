@@ -19,7 +19,12 @@ export default function Auth({
   const pin = Cookies.get("pin");
 
   useEffect(() => {
-    if (titlePage === "Login" || titlePage === "Register") {
+    if (
+      titlePage === "Login" ||
+      titlePage === "Register" ||
+      titlePage === "Reset Password" ||
+      titlePage === "Forgot Password"
+    ) {
       token && !toast ? router.push("/home") : "";
     } else if (titlePage === "Create Pin" && !token) {
       router.push("/login");

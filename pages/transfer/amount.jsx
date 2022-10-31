@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "layout";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import ButtonContinue from "components/button/ButtonContinue";
@@ -8,7 +7,6 @@ import CardPeople from "components/card/People";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { transferData } from "stores/action/transfer";
-import user from "stores/reducer/user";
 
 export default function TransferAmount() {
   const router = useRouter();
@@ -19,10 +17,12 @@ export default function TransferAmount() {
   const [detailTransfer, setDetailTransfer] = useState({
     receiverId: dataUser.id,
   });
-  const isLogin = Cookies.get("token");
 
-  if (!isLogin) {
-    router.push("/login");
+  if (
+    Object.keys(dataUser).length < 1 ||
+    Object.keys(detailTransfer).length < 1
+  ) {
+    router.push("/transfer");
   }
 
   const handleOnChange = (e) => {
@@ -31,18 +31,20 @@ export default function TransferAmount() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(detailTransfer);
     dispatch(transferData(detailTransfer));
     router.push("/transfer/confirmation");
   };
 
-  // const handleButtonContinue = () => {
-  //   router.push("/transfer/confirmation");
-  // };
-
   return (
-    <div className={`${isLogin ? "" : "hidden"}`}>
-      <Layout title="Transfer" page={"Transfer"}>
+    <div
+      className={`${
+        Object.keys(dataUser).length < 1 ||
+        Object.keys(detailTransfer).length < 1
+          ? "hidden"
+          : ""
+      }`}
+    >
+      <Layout title="Transfer Detail" page={"Transfer"}>
         {user.isLoading ? (
           <div role="status">
             <svg

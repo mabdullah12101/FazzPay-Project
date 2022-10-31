@@ -14,6 +14,12 @@ export const transferData = (data) => {
   };
 };
 
+export const resetTransferData = () => {
+  return {
+    type: "RESET_TRANSFER_DATA",
+  };
+};
+
 export const createTransfer = (data) => {
   return {
     type: "CREATE_TRANSFER",

@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "layout";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import ButtonContinue from "components/button/ButtonContinue";
 import CardPeople from "components/card/People";
@@ -10,23 +9,28 @@ import { useSelector } from "react-redux";
 
 export default function Confirmation() {
   const router = useRouter();
-  const isLogin = Cookies.get("token");
   const dataUser = useSelector((state) => state.transfer.user);
   const transfer = useSelector((state) => state.transfer);
   const detailTransfer = transfer.detailTransfer;
   const balance = useSelector((state) => state.user.data.balance);
 
-  if (!isLogin) {
-    router.push("/login");
+  if (
+    Object.keys(dataUser).length < 1 ||
+    Object.keys(detailTransfer).length < 1
+  ) {
+    router.push("/transfer");
   }
 
-  const handleContinue = () => {
-    setModal(true);
-  };
-
   return (
-    <div className={`${isLogin ? "" : "hidden"}`}>
-      <Layout title="Transfer" page={"Transfer"}>
+    <div
+      className={`${
+        Object.keys(dataUser).length < 1 ||
+        Object.keys(detailTransfer).length < 1
+          ? "hidden"
+          : ""
+      }`}
+    >
+      <Layout title="Transfer Status" page={"Transfer"}>
         <div className="bg-white rounded-3xl shadow-lg px-7 py-7">
           {transfer.isError ? (
             <div className="text-center mt-10 mb-16">

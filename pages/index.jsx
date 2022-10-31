@@ -1,16 +1,33 @@
+import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function LandingPage() {
+  const router = useRouter();
   return (
     <>
+      <Head>
+        <title>FazzPay</title>
+      </Head>
       <header className="flex justify-between items-center px-36 pt-10">
-        <div className="text-primary font-semibold text-3xl">FazzPay</div>
+        <div
+          className="text-primary font-semibold text-3xl cursor-pointer"
+          onClick={() => router.push("/")}
+        >
+          FazzPay
+        </div>
         <div className="flex gap-x-7">
-          <button className="bg-white text-lg text-primary border-primary shadow border-2 w-28 py-2 font-semibold rounded-xl">
+          <button
+            className="bg-white text-lg text-primary border-primary shadow border-2 w-28 py-2 font-semibold rounded-xl"
+            onClick={() => router.push("/login")}
+          >
             Login
           </button>
-          <button className="bg-primary text-lg text-white shadow w-28 py-2 font-semibold rounded-xl">
+          <button
+            className="bg-primary text-lg text-white shadow w-28 py-2 font-semibold rounded-xl"
+            onClick={() => router.push("/register")}
+          >
             Register
           </button>
         </div>

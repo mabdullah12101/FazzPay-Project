@@ -115,6 +115,15 @@ export default function Transfer(props) {
 
 export async function getServerSideProps(context) {
   const dataCookies = Cookies(context);
+  if (!dataCookies.token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   let params = context.query;
   params.page = params.page ? +params.page : 1;
   params.sort = params.sort ? params.sort : "firstName ASC";

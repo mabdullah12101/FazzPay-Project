@@ -11,18 +11,32 @@ import { modal } from "stores/action/topUp";
 import axiosClient from "utils/axios";
 import { getDataUserById } from "stores/action/user";
 import { getDataDashboard } from "stores/action/dashboard";
+import { getDataHistory } from "stores/action/history";
+import { useEffect } from "react";
+import { resetTransferData } from "stores/action/transfer";
 
 export default function Layout({ title, page, children }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const token = Cookies.get("token");
+  const pin = Cookies.get("pin");
   const modalTopUp = useSelector((state) => state.topUp.modal);
   const [amount, setAmount] = useState({});
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState("");
   const [toast, setToast] = useState(false);
+
+  useEffect(() => {
+    if (
+      title !== "Transfer Detail" &&
+      title !== "Transfer Confirmation" &&
+      title !== "Transfer Status"
+    ) {
+      dispatch(resetTransferData());
+    }
+  }, [dispatch, title]);
 
   const handleClose = () => {
     dispatch(modal(false));
@@ -56,6 +70,7 @@ export default function Layout({ title, page, children }) {
   const closeToast = () => {
     dispatch(getDataUserById(user.data.id));
     dispatch(getDataDashboard(user.data.id));
+    dispatch(getDataHistory());
     setAmount({});
     setIsError(false);
     setLoading(false);
@@ -66,13 +81,14 @@ export default function Layout({ title, page, children }) {
 
   if (!token) {
     router.push("/login");
+  } else if (!pin) {
+    router.push("/create-pin");
   }
 
   return token ? (
     <>
       <Head>
         <title>{title} - FazzPay</title>
-        <meta name="Fazzpay" content="Lorem40" />
       </Head>
 
       {/* MODAL TOPUP */}
