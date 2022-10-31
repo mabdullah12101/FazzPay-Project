@@ -1,4 +1,4 @@
-<h1 align='center'>Wainscot Event Website </h1>
+<h1 align='center'>FazzPay Project</h1>
   <p align="center">
     <a href="https://fazzpay-project.vercel.app/">View Demo</a>
     ·
