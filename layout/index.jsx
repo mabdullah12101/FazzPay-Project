@@ -22,7 +22,7 @@ export default function Layout({ title, page, children }) {
   const token = Cookies.get("token");
   const pin = Cookies.get("pin");
   const modalTopUp = useSelector((state) => state.topUp.modal);
-  const [amount, setAmount] = useState({});
+  const [amount, setAmount] = useState({ amount: "" });
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState("");
@@ -40,9 +40,11 @@ export default function Layout({ title, page, children }) {
 
   const handleClose = () => {
     dispatch(modal(false));
+    setAmount({ amount: "" });
   };
 
   const changeInputTopUp = (e) => {
+    console.log(amount);
     setAmount({ ...amount, [e.target.name]: e.target.value });
   };
 
@@ -71,7 +73,7 @@ export default function Layout({ title, page, children }) {
     dispatch(getDataUserById(user.data.id));
     dispatch(getDataDashboard(user.data.id));
     dispatch(getDataHistory());
-    setAmount({});
+    setAmount({ amount: "" });
     setIsError(false);
     setLoading(false);
     setMessage("");
@@ -117,6 +119,7 @@ export default function Layout({ title, page, children }) {
               min={10000}
               className="border border-[#A9A9A999] rounded-lg w-full text-center py-4"
               name="amount"
+              value={amount.amount}
               onChange={changeInputTopUp}
             />
 
