@@ -75,7 +75,7 @@ E Wallet Website FazzPayy to solve your banking problem
    ```
 4. Open Browser
    ```sh
-   http://localhost:3001
+   http://localhost:3000
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
