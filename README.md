@@ -1,4 +1,3 @@
-<br />
 <div align="center">
 <h3 align="center">Fazzpay Project</h3>
 
@@ -64,7 +63,7 @@ E Wallet Website FazzPayy to solve your banking problem
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/mabdullah12101/FazzPay-Project.git
    ```
 2. Install NPM packages
    ```sh
