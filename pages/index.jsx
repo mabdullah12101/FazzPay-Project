@@ -2,30 +2,58 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import { useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 export default function LandingPage() {
+  const [hamburger, setHamburger] = useState(false);
   const router = useRouter();
   return (
-    <>
+    <div className="h-screen flex flex-col overflow-hidden">
       <Head>
         <title>FazzPay</title>
       </Head>
-      <header className="flex justify-between items-center px-36 pt-10">
-        <div
-          className="text-primary font-semibold text-3xl cursor-pointer"
-          onClick={() => router.push("/")}
-        >
-          FazzPay
+      <header className={`${hamburger ? "h-screen" : ""} flex flex-col`}>
+        <div className="flex justify-between items-center shadow-md p-4 sm:p-6 xl:px-36 xl:pt-10">
+          <div
+            className="text-primary font-semibold text-lg sm:text-xl md:text-2xl xl:text-3xl cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            FazzPay
+          </div>
+          <div className="hidden sm:flex sm:gap-x-2 xl:gap-x-7">
+            <button
+              className="bg-white sm:text-sm xl:text-lg text-primary border-primary shadow border-2 w-24 py-2 font-semibold rounded-xl"
+              onClick={() => router.push("/login")}
+            >
+              Login
+            </button>
+            <button
+              className="bg-primary sm:text-sm xl:text-lg text-white shadow w-24 py-2 font-semibold rounded-xl"
+              onClick={() => router.push("/register")}
+            >
+              Register
+            </button>
+          </div>
+          <div className="sm:hidden">
+            <button onClick={() => setHamburger(!hamburger)}>
+              {hamburger ? <FiX /> : <FiMenu />}
+            </button>
+          </div>
         </div>
-        <div className="flex gap-x-7">
+        <div
+          className={`flex-1 ${
+            hamburger ? "flex" : "hidden"
+          } flex-col gap-y-4 justify-center items-center px-4 sm:hidden`}
+        >
           <button
-            className="bg-white text-lg text-primary border-primary shadow border-2 w-28 py-2 font-semibold rounded-xl"
+            className="bg-white text-primary border-primary shadow border-2 w-28 py-2 font-semibold rounded-xl"
             onClick={() => router.push("/login")}
           >
             Login
           </button>
           <button
-            className="bg-primary text-lg text-white shadow w-28 py-2 font-semibold rounded-xl"
+            className="bg-primary text-white shadow w-28 py-2 font-semibold rounded-xl"
             onClick={() => router.push("/register")}
           >
             Register
@@ -33,7 +61,11 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <section className="grid grid-cols-12 px-36 items-center">
+      <section
+        className={`flex-1 ${
+          hamburger ? "hidden" : "grid"
+        } grid-cols-12 px-4 sm:px-6 md:px-6 xl:px-36 items-center`}
+      >
         <div className="col-span-6 text-center">
           <Image
             src={"/hero-img.png"}
@@ -43,21 +75,21 @@ export default function LandingPage() {
           />
         </div>
         <div className="col-span-6">
-          <div className="font-bold text-dark text-6xl mb-10">
+          <div className="font-bold text-dark text-2xl sm:text-4xl md:text-5xl xl:text-6xl mb-5 xl:mb-10">
             Awesome App <br /> For Saving{" "}
             <span className="text-primary">Time</span>.
           </div>
-          <p className="text-lg text-[#3A3D42] mb-12">
-            We bring you a mobile app for banking problems that <br /> oftenly
-            wasting much of your times.
+          <p className="xl:text-lg sm:max-w-[300px] md:max-w-sm text-[#3A3D42] mb-6 xl:mb-12">
+            We bring you a mobile app for banking problems that oftenly wasting
+            much of your times.
           </p>
-          <button className="font-semibold text-lg text-white bg-primary px-11 py-3 rounded-xl mb-12">
+          <button className="font-semibold xl:text-lg text-white bg-primary px-11 py-3 rounded-xl mb-6 xl:mb-12">
             Try It Free
           </button>
-          <p className="text-lg text-[#3A3D42] mb-6">Available on</p>
+          <p className="xl:text-lg text-[#3A3D42] mb-3 xl:mb-6">Available on</p>
 
           <div className="flex gap-x-4">
-            <div className="w-12 h-12">
+            <div className="w-8 h-8 xl:w-12 xl:h-12">
               <Image
                 src={"/gplay.png"}
                 layout={"responsive"}
@@ -66,7 +98,7 @@ export default function LandingPage() {
                 alt="google-play-store"
               />
             </div>
-            <div className="w-12 h-12">
+            <div className="w-8 h-8 xl:w-12 xl:h-12">
               <Image
                 src={"/appstore.png"}
                 layout={"responsive"}
@@ -78,6 +110,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
