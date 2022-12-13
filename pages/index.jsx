@@ -4,37 +4,49 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import Cookies from "js-cookie";
 
 export default function LandingPage() {
-  const [hamburger, setHamburger] = useState(false);
   const router = useRouter();
+  const [hamburger, setHamburger] = useState(false);
+  const token = Cookies.get("token");
+
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className={`h-screen flex flex-col overflow-hidden`}>
       <Head>
         <title>FazzPay</title>
       </Head>
       <header className={`${hamburger ? "h-screen" : ""} flex flex-col`}>
-        <div className="flex justify-between items-center shadow-md p-4 sm:p-6 xl:px-36 xl:pt-10">
+        <div className="flex justify-between items-center shadow-md p-4 sm:p-6 xl:px-12">
           <div
             className="text-primary font-semibold text-lg sm:text-xl md:text-2xl xl:text-3xl cursor-pointer"
             onClick={() => router.push("/")}
           >
             FazzPay
           </div>
-          <div className="hidden sm:flex sm:gap-x-2 xl:gap-x-7">
+          {token ? (
             <button
-              className="bg-white sm:text-sm xl:text-lg text-primary border-primary shadow border-2 w-24 py-2 font-semibold rounded-xl"
-              onClick={() => router.push("/login")}
+              className="hidden sm:block bg-primary sm:text-sm xl:text-lg text-white shadow w-28 xl:w-32 py-3 font-semibold rounded-xl"
+              onClick={() => router.push("/home")}
             >
-              Login
+              Dashboard
             </button>
-            <button
-              className="bg-primary sm:text-sm xl:text-lg text-white shadow w-24 py-2 font-semibold rounded-xl"
-              onClick={() => router.push("/register")}
-            >
-              Register
-            </button>
-          </div>
+          ) : (
+            <div className="hidden sm:flex sm:gap-x-2 xl:gap-x-4">
+              <button
+                className="bg-white sm:text-sm xl:text-lg text-primary border-primary shadow border-2 w-24 xl:w-28 py-2 xl:py-3 font-semibold rounded-xl"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </button>
+              <button
+                className="bg-primary sm:text-sm xl:text-lg text-white shadow w-24 xl:w-28 py-2 xl:py-3 font-semibold rounded-xl"
+                onClick={() => router.push("/register")}
+              >
+                Register
+              </button>
+            </div>
+          )}
           <div className="sm:hidden">
             <button onClick={() => setHamburger(!hamburger)}>
               {hamburger ? <FiX /> : <FiMenu />}
@@ -46,18 +58,29 @@ export default function LandingPage() {
             hamburger ? "flex" : "hidden"
           } flex-col gap-y-4 justify-center items-center px-4 sm:hidden`}
         >
-          <button
-            className="bg-white text-primary border-primary shadow border-2 w-28 py-2 font-semibold rounded-xl"
-            onClick={() => router.push("/login")}
-          >
-            Login
-          </button>
-          <button
-            className="bg-primary text-white shadow w-28 py-2 font-semibold rounded-xl"
-            onClick={() => router.push("/register")}
-          >
-            Register
-          </button>
+          {token ? (
+            <button
+              className="bg-primary sm:text-sm xl:text-lg text-white shadow w-28 xl:w-32 py-3 font-semibold rounded-xl"
+              onClick={() => router.push("/home")}
+            >
+              Dashboard
+            </button>
+          ) : (
+            <>
+              <button
+                className="bg-white text-primary border-primary shadow border-2 w-28 py-2 font-semibold rounded-xl"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </button>
+              <button
+                className="bg-primary text-white shadow w-28 py-2 font-semibold rounded-xl"
+                onClick={() => router.push("/register")}
+              >
+                Register
+              </button>
+            </>
+          )}
         </div>
       </header>
 
