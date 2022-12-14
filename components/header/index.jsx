@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex justify-between items-center text-dark bg-white p-6 xl:px-36 xl:py-8 rounded-b-3xl shadow-md sm:bg-red-500 relative">
+      <div className="flex justify-between items-center text-dark bg-white p-6 xl:px-36 xl:py-8 rounded-b-3xl shadow-md relative">
         <Brand variant={"blue"} />
         <div className="flex items-center">
           <div className="w-8 h-8 xl:w-14 xl:h-14 rounded-xl mr-3">

@@ -5,6 +5,7 @@ import axiosClient from "utils/axiosServer";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { modal } from "stores/action/topUp";
+import { loadingPage } from "stores/action/transfer";
 
 export default function List({ page, icon, content }) {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function List({ page, icon, content }) {
         router.push("/home");
         break;
       case "Transfer":
+        dispatch(loadingPage());
         router.push("/transfer");
         break;
       case "Top Up":
