@@ -12,7 +12,7 @@ export default function LandingPage() {
   const token = Cookies.get("token");
 
   return (
-    <div className={`h-screen flex flex-col overflow-hidden`}>
+    <div className={`h-screen flex flex-col`}>
       <Head>
         <title>FazzPay</title>
       </Head>

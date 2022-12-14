@@ -7,11 +7,19 @@ import CardPeople from "components/card/People";
 import axiosServer from "utils/axiosServer";
 import qs from "query-string";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { finishLoadingPage } from "stores/action/transfer";
 
 export default function Transfer(props) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const isLogin = true;
   const [search, setSearch] = useState({ sort: props.params.sort });
+
+  useEffect(() => {
+    dispatch(finishLoadingPage());
+  }, []);
 
   const navigateSearch = (data) => {
     let query = { ...props.params, ...data };
@@ -136,6 +144,7 @@ export async function getServerSideProps(context) {
       },
     }
   );
+
   return {
     props: {
       listUser: result.data.status === 200 ? result.data.data : [],

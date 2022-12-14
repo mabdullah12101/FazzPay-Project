@@ -1,5 +1,19 @@
 import axiosClient from "utils/axios";
 
+export const loadingPage = () => {
+  return {
+    type: "LOADING_PAGE",
+    payload: true,
+  };
+};
+
+export const finishLoadingPage = () => {
+  return {
+    type: "FINISH_LOADING_PAGE",
+    payload: false,
+  };
+};
+
 export const detailUser = (data) => {
   return {
     type: "DETAIL_USER",

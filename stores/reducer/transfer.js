@@ -5,10 +5,23 @@ const initialState = {
   detailTransfer: {},
   dateTimeTransfer: "",
   isError: false,
+  loadingPage: true,
 };
 
 const transfer = (state = initialState, action) => {
   switch (action.type) {
+    case "LOADING_PAGE":
+      return {
+        ...state,
+        loadingPage: action.payload,
+      };
+
+    case "FINISH_LOADING_PAGE":
+      return {
+        ...state,
+        loadingPage: action.payload,
+      };
+
     case "DETAIL_USER":
       return {
         ...state,

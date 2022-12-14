@@ -5,7 +5,7 @@ export default function Brand({ variant }) {
   const router = useRouter();
   return (
     <div
-      className={`font-bold text-3xl cursor-pointer ${
+      className={`font-bold text-xl xl:text-3xl cursor-pointer ${
         variant === "blue" ? "text-primary" : ""
       }`}
       onClick={() => router.push("/")}

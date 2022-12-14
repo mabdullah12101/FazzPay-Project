@@ -5,7 +5,7 @@ import List from "./List";
 
 export default function Aside({ page }) {
   return (
-    <div className="bg-white py-10 rounded-3xl w-72 shadow-lg">
+    <div className="hidden xl:block bg-white py-10 rounded-3xl w-72 shadow-lg">
       <ul className="flex flex-col justify-between h-full">
         <div className="flex flex-col justify-between gap-y-12">
           <List icon={"akar-icons:grid"} content={"Dashboard"} page={page} />

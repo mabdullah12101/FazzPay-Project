@@ -53,9 +53,11 @@ export default function Home() {
   const [expenseData, setExpenseData] = useState([]);
 
   useEffect(() => {
-    getIncomeData();
-    getExpenseData();
-  }, []);
+    if (!dashboard.isLoading) {
+      getIncomeData();
+      getExpenseData();
+    }
+  }, [dashboard.isLoading]);
 
   const getIncomeData = () => {
     const fixData = [];
@@ -96,7 +98,7 @@ export default function Home() {
           <div role="status">
             <svg
               aria-hidden="true"
-              class="mr-2 w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+              className="mr-2 w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -110,44 +112,50 @@ export default function Home() {
                 fill="currentFill"
               ></path>
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       ) : (
         <>
-          <div className="bg-primary flex justify-between p-7 rounded-lg">
+          <div className="bg-primary flex justify-between p-5 xl:p-7 rounded-lg">
             <div>
-              <p className="text-[#E0E0E0] text-lg mb-2">Balance</p>
-              <p className="font-semibold text-4xl text-white mb-4">
+              <p className="text-[#E0E0E0] text-sm xl:text-lg mb-2">Balance</p>
+              <p className="font-semibold text-2xl xl:text-4xl text-white mb-4">
                 {`Rp${Number(dataUser.balance).toLocaleString()}`}
               </p>
-              <p className="text-[#DFDCDC] text-sm">{dataUser.noTelp}</p>
+              <p className="text-[#DFDCDC] text-xs xl:text-sm">
+                {dataUser.noTelp}
+              </p>
             </div>
-            <div className="grid gap-y-3">
+            <div className="grid gap-y-2 xl:gap-y-3">
               <button
-                className="flex items-center gap-x-2 bg-[#FFFFFF33] border border-white rounded-lg px-7 py-4"
+                className="flex items-center gap-x-2 bg-[#FFFFFF33] border border-white rounded-lg px-4 xl:px-7 py-3 xl:py-4"
                 onClick={() => router.push("/transfer")}
               >
                 <Icon
                   icon={"akar-icons:arrow-up"}
-                  className="text-[#B5B0ED] text-2xl"
+                  className="text-[#B5B0ED] text-lg xl:text-2xl"
                 />
-                <p className="text-white font-semibold text-lg">Transfer</p>
+                <p className="text-white font-semibold text-sm xl:text-lg">
+                  Transfer
+                </p>
               </button>
               <button
-                className="flex items-center gap-x-2 bg-[#FFFFFF33] border border-white rounded-lg px-7 py-4"
+                className="flex items-center gap-x-2 bg-[#FFFFFF33] border border-white rounded-lg px-4 xl:px-7 py-3 xl:py-4"
                 onClick={() => dispatch(modal(true))}
               >
                 <Icon
                   icon={"akar-icons:plus"}
-                  className="text-[#B5B0ED] text-2xl"
+                  className="text-[#B5B0ED] text-lg xl:text-2xl"
                 />
-                <p className="text-white font-semibold text-lg">Top Up</p>
+                <p className="text-white font-semibold text-sm xl:text-lg">
+                  Top Up
+                </p>
               </button>
             </div>
           </div>
 
-          <div className="flex mt-5 gap-x-5">
+          <div className="flex flex-col xl:flex-row mt-5 xl:gap-x-5">
             <div className="basis-[55%] bg-white rounded-3xl p-7">
               <div className="flex justify-between items-center">
                 <div>
