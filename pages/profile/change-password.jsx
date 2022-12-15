@@ -122,7 +122,7 @@ export default function ChangePassword() {
 
         <form
           action=""
-          className="w-[431px] mx-auto text-center mt-24"
+          className="w-full xl:w-[431px] mx-auto text-center mt-24"
           onSubmit={handleSubmit}
         >
           <div className="grid gap-y-10">

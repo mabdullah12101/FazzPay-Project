@@ -199,7 +199,7 @@ export default function Confirmation() {
           modal ? "fixed" : "hidden"
         } w-full h-full bg-[rgba(0,0,0,0.4)] z-50`}
       >
-        <div className="absolute top-[25%] left-[30%] bg-white w-[40%] px-9 py-10 rounded-3xl">
+        <div className="absolute left-0 right-0 top-0 bottom-0 m-auto w-3/4 h-fit bg-white xl:w-[40%] px-6 xl:px-9 py-8 xl:py-10 rounded-3xl">
           <div className="flex justify-between">
             <h4 className="text-dark text-lg font-semibold">
               Enter PIN to Transfer
@@ -217,7 +217,7 @@ export default function Confirmation() {
           </p>
 
           <form action="" className="mt-12" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-6 gap-x-6">
+            <div className="grid grid-cols-6 gap-x-3 xl:gap-x-6">
               {[1, 2, 3, 4, 5, 6].map((item) => (
                 <InputPin
                   key={item}

@@ -225,7 +225,7 @@ export default function ChangePin() {
 
             <form
               action=""
-              className="w-[431px] mx-auto text-center mt-24"
+              className="w-full xl:w-[431px] mx-auto text-center mt-24"
               onSubmit={handleSubmitCheckPin}
             >
               <div className="grid grid-cols-6 gap-x-6">

@@ -100,7 +100,7 @@ export default function Layout({ title, page, children }) {
           modalTopUp ? "fixed" : "hidden"
         } w-full h-full bg-[rgba(0,0,0,0.4)] z-50`}
       >
-        <div className="absolute top-[25%] left-[30%] bg-white w-[40%] px-9 py-10 rounded-3xl">
+        <div className="absolute left-0 right-0 top-0 bottom-0 m-auto w-3/4 h-fit bg-white xl:w-[40%] px-6 xl:px-9 py-8 xl:py-10 rounded-3xl">
           <div className="flex justify-between">
             <h4 className="text-dark text-lg font-semibold">Topup</h4>
             <Icon

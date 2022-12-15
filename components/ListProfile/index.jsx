@@ -33,7 +33,7 @@ export default function ListProfile({ content }) {
   return (
     <div>
       <button
-        className="text-[#4D4B57] font-semibold bg-[#E5E8ED] flex justify-between items-center py-5 px-5 rounded-lg w-[433px]"
+        className="text-[#4D4B57] font-semibold bg-[#E5E8ED] flex justify-between items-center py-5 px-5 rounded-lg w-full xl:w-[433px]"
         onClick={handleNavigate}
       >
         <p>{content}</p>

@@ -123,7 +123,7 @@ export default function ChangePhone() {
 
         <form
           action=""
-          className="w-[431px] mx-auto text-center mt-24"
+          className="w-full xl:w-[431px] mx-auto text-center mt-24"
           onSubmit={handleSubmit}
         >
           <Input

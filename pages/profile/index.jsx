@@ -115,7 +115,7 @@ export default function Profile() {
       </div>
 
       <div className="bg-white rounded-3xl shadow-lg px-7 pt-12 pb-16">
-        <div className="grid justify-center text-center">
+        <div className="grid xl:justify-center text-center">
           <div className="w-20 h-20 rounded-lg mx-auto mb-3 overflow-hidden">
             <Image
               src={
