@@ -85,7 +85,7 @@ E Wallet Website FazzPayy to solve your banking problem
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* Register Account and Check your email for verification (Problem with refresh token)
+* Register Account and Check your email for verification (Problem with register)
 * For verif just see message when open the link to look is success or not
 * Login With Your Account (if register problem, login with email: bagusth15@gmail.com, password: 123, pin: 123456)
 * Edit your profile (Image, Phone Number)
